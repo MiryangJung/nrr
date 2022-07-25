@@ -3,18 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"yarn relay:watch\" \"yarn res:dev\" \"next dev\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "res:dev": "rescript build -w",
+    "res:build": "rescript build",
+    "res:clean": "rescript clean -with-deps",
+    "relay": "rescript-relay-compiler",
+    "relay:watch": "rescript-relay-compiler --watch"
   },
   "dependencies": {
+    "@rescript/react": "^0.10.3",
+    "bs-fetch": "^0.6.2",
+    "concurrently": "^7.3.0",
     "next": "12.2.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-relay": "13.2.0",
+    "relay-runtime": "13.2.0",
+    "rescript-relay": "1.0.0-beta.21"
   },
   "devDependencies": {
     "eslint": "8.20.0",
-    "eslint-config-next": "12.2.3"
+    "eslint-config-next": "12.2.3",
+    "rescript": "^9.1.4"
   }
 }

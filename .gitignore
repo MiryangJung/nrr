@@ -30,3 +30,15 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# env
+.env
+
+# next
+.next
+
+# rescript
+# **/lib/
+lib/bs
+.bsb.lock
+.merlin

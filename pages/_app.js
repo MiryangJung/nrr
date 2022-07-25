@@ -1,7 +1,5 @@
-import '../styles/globals.css'
+import ResApp from "src/App.bs"
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function App(props) {
+  return <ResApp {...props}/>;
 }
-
-export default MyApp

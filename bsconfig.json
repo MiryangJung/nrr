@@ -1,0 +1,14 @@
+{
+    "name": "nrr",
+    "reason": { "react-jsx": 3 },
+    "bs-dependencies": ["@rescript/react", "rescript-relay", "bs-fetch"],
+    "ppx-flags": ["rescript-relay/ppx"],
+    "sources": [
+      { "dir": "src", "subdirs": true }
+    ],
+    "package-specs": {
+      "module": "commonjs",
+      "in-source": true
+    },
+    "suffix": ".bs.js"
+  } 
