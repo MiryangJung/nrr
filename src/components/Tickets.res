@@ -18,11 +18,22 @@ module Fragment = %relay(`
 
 @react.component
 let make = (~queryRef) => {
-  let {data} = Fragment.usePagination(queryRef)
+  let {data, hasNext, isLoadingNext, loadNext} = Fragment.usePagination(queryRef)
   <>
-    {data.ticketsConnection
-    ->Fragment.getConnectionNodes
-    ->Belt.Array.map(ticket => <> {ticket.id->React.string} </>)
-    ->React.array}
+    <ul>
+      {data.ticketsConnection
+      ->Fragment.getConnectionNodes
+      ->Belt.Array.map(ticket => <li key={ticket.id}> {ticket.id->React.string} </li>)
+      ->React.array}
+    </ul>
+    {hasNext
+      ? <button
+          className="btn btn-gradient-primary font-weight-bold"
+          id="add-task"
+          onClick={_ => loadNext(~count=2, ()) |> ignore}
+          disabled=isLoadingNext>
+          {React.string("More")}
+        </button>
+      : React.null}
   </>
 }

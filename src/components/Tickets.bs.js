@@ -135,9 +135,20 @@ var Fragment = {
 function Tickets(Props) {
   var queryRef = Props.queryRef;
   var match = usePagination(queryRef);
-  return React.createElement(React.Fragment, undefined, Belt_Array.map(Curry._1(getConnectionNodes, match.data.ticketsConnection), (function (ticket) {
-                    return React.createElement(React.Fragment, undefined, ticket.id);
-                  })));
+  var loadNext = match.loadNext;
+  return React.createElement(React.Fragment, undefined, React.createElement("ul", undefined, Belt_Array.map(Curry._1(getConnectionNodes, match.data.ticketsConnection), (function (ticket) {
+                        return React.createElement("li", {
+                                    key: ticket.id
+                                  }, ticket.id);
+                      }))), match.hasNext ? React.createElement("button", {
+                    className: "btn btn-gradient-primary font-weight-bold",
+                    id: "add-task",
+                    disabled: match.isLoadingNext,
+                    onClick: (function (param) {
+                        Curry._3(loadNext, 2, undefined, undefined);
+                        
+                      })
+                  }, "More") : null);
 }
 
 var make = Tickets;

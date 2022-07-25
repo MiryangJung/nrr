@@ -91,11 +91,8 @@ var Query = {
 
 function $$default(param) {
   var query = use(undefined, undefined, undefined, undefined, undefined);
-  return React.createElement(React.Suspense, {
-              children: React.createElement(Tickets.make, {
-                    queryRef: query.fragmentRefs
-                  }),
-              fallback: React.createElement("div", undefined, "Loading...")
+  return React.createElement(Tickets.make, {
+              queryRef: query.fragmentRefs
             });
 }
 
