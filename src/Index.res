@@ -9,7 +9,7 @@ let default = () => {
   <Tickets queryRef=query.fragmentRefs />
 }
 
-// ---안되는 코드 1---
+// ---not work 1---
 // type props = {preloadedQueries: IndexQuery_graphql.Types.response}
 
 // let default = (props: props) => {
@@ -24,7 +24,7 @@ let default = () => {
 //   Js.Promise.resolve({"props": props})
 // }
 
-// ---안되는 코드 2---
+// ---not work 2---
 // let default = () => {
 //   let query = Query.use(~variables=(), ())
 //   <React.Suspense fallback={<div> {React.string("Loading...")} </div>}>
