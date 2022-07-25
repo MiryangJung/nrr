@@ -1,5 +1,7 @@
 # nnr
 
+> [Next.js(SSR) + Relay + ReScript 해보기](https://miryang.dev/blog/try-nextjs-relay-rescript)
+
 GraphQL 서버 실행 `localhost:4000`
 
 ```shell
