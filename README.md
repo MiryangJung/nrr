@@ -1,4 +1,6 @@
-# nnr
+# nrr
+
+(Next.js + ReScript + Relay)
 
 > [Article about this repo - Try Next.js(SSR) + Relay + ReScript 해보기](https://miryang.dev/blog/try-nextjs-relay-rescript)
 
