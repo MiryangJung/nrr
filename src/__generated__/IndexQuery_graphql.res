@@ -4,8 +4,11 @@
 module Types = {
   @@ocaml.warning("-30")
 
+  type rec response_siteStatistics = {
+    currentVisitorsOnline: int,
+  }
   type response = {
-    fragmentRefs: RescriptRelay.fragmentRefs<[ | #Tickets_query]>,
+    siteStatistics: response_siteStatistics,
   }
   @live
   type rawResponse = response
@@ -33,7 +36,7 @@ module Internal = {
   type wrapResponseRaw
   @live
   let wrapResponseConverter: Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = %raw(
-    json`{"__root":{"":{"f":""}}}`
+    json`{}`
   )
   @live
   let wrapResponseConverterMap = ()
@@ -47,7 +50,7 @@ module Internal = {
   type responseRaw
   @live
   let responseConverter: Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = %raw(
-    json`{"__root":{"":{"f":""}}}`
+    json`{}`
   )
   @live
   let responseConverterMap = ()
@@ -78,18 +81,13 @@ type operationType = RescriptRelay.queryNode<relayOperationNode>
 
 
 let node: operationType = %raw(json` (function(){
-var v0 = [
-  {
-    "kind": "Literal",
-    "name": "after",
-    "value": ""
-  },
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 2
-  }
-];
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "currentVisitorsOnline",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -98,9 +96,16 @@ return {
     "name": "IndexQuery",
     "selections": [
       {
+        "alias": null,
         "args": null,
-        "kind": "FragmentSpread",
-        "name": "Tickets_query"
+        "concreteType": "SiteStatistics",
+        "kind": "LinkedField",
+        "name": "siteStatistics",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/)
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -114,101 +119,32 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
-        "concreteType": "TicketConnection",
+        "args": null,
+        "concreteType": "SiteStatistics",
         "kind": "LinkedField",
-        "name": "ticketsConnection",
+        "name": "siteStatistics",
         "plural": false,
         "selections": [
+          (v0/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "TicketEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Ticket",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "cursor",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "endCursor",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "hasNextPage",
-                "storageKey": null
-              }
-            ],
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
         ],
-        "storageKey": "ticketsConnection(after:\"\",first:2)"
-      },
-      {
-        "alias": null,
-        "args": (v0/*: any*/),
-        "filters": null,
-        "handle": "connection",
-        "key": "Tickets_ticketsConnection",
-        "kind": "LinkedHandle",
-        "name": "ticketsConnection"
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "200989424322d1b74175bd560f91d973",
+    "cacheID": "4f29b254e8ab750a260ec9b0a194c528",
     "id": null,
     "metadata": {},
     "name": "IndexQuery",
     "operationKind": "query",
-    "text": "query IndexQuery {\n  ...Tickets_query\n}\n\nfragment Tickets_query on Query {\n  ticketsConnection(first: 2, after: \"\") {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query IndexQuery {\n  siteStatistics {\n    currentVisitorsOnline\n    id\n  }\n}\n"
   }
 };
 })() `)

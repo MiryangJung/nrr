@@ -3,7 +3,7 @@
 
 var Curry = require("rescript/lib/js/curry.js");
 var React = require("react");
-var Tickets = require("./components/Tickets.bs.js");
+var RelayEnv = require("./RelayEnv.bs.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var RescriptRelay = require("rescript-relay/src/RescriptRelay.bs.js");
 var RelayRuntime = require("relay-runtime");
@@ -89,10 +89,18 @@ var Query = {
   retain: retain
 };
 
-function $$default(param) {
-  var query = use(undefined, undefined, undefined, undefined, undefined);
-  return React.createElement(Tickets.make, {
-              queryRef: query.fragmentRefs
+function $$default(props) {
+  return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, String(props.data.siteStatistics.currentVisitorsOnline)));
+}
+
+function getServerSideProps(_ctx) {
+  var __x = fetchPromised(RelayEnv.environment, undefined, undefined, undefined, undefined);
+  return __x.then(function (data) {
+              return Promise.resolve({
+                          props: {
+                            data: data
+                          }
+                        });
             });
 }
 
@@ -100,4 +108,5 @@ exports.Query = Query;
 exports.$$default = $$default;
 exports.default = $$default;
 exports.__esModule = true;
+exports.getServerSideProps = getServerSideProps;
 /* react Not a pure module */

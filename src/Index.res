@@ -1,33 +1,25 @@
 module Query = %relay(`
   query IndexQuery {
-    ...Tickets_query
+    siteStatistics {
+      currentVisitorsOnline
+    }
   }
 `)
 
-let default = () => {
-  let query = Query.use(~variables=(), ())
-  <Tickets queryRef=query.fragmentRefs />
+type props = {data: IndexQuery_graphql.Types.response}
+
+let default = (props: props) => {
+  <>
+    <h1> {props.data.siteStatistics.currentVisitorsOnline->Belt.Int.toString->React.string} </h1>
+  </>
 }
 
-// ---not work 1---
-// type props = {preloadedQueries: IndexQuery_graphql.Types.response}
-
-// let default = (props: props) => {
-//   props.preloadedQueries->Js.log
-//   <> </>
-// }
-
-// let getServerSideProps = _ctx => {
-//   let props = {
-//     preloadedQueries: Query.use(~variables=(), ()),
-//   }
-//   Js.Promise.resolve({"props": props})
-// }
-
-// ---not work 2---
-// let default = () => {
-//   let query = Query.use(~variables=(), ())
-//   <React.Suspense fallback={<div> {React.string("Loading...")} </div>}>
-//     <Tickets queryRef=query.fragmentRefs />
-//   </React.Suspense>
-// }
+let getServerSideProps = _ctx => {
+  Query.fetchPromised(
+    ~environment=RelayEnv.environment,
+    ~variables=(),
+    (),
+  )->Js.Promise.then_(data => {
+    Js.Promise.resolve({"props": {"data": data}})
+  }, _)
+}
