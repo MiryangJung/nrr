@@ -21,6 +21,6 @@ let getStaticProps = _ctx => {
     ~variables=(),
     (),
   )->Js.Promise.then_(data => {
-    Js.Promise.resolve({"props": {"data": data, "revalidate": 60}})
+    Js.Promise.resolve({"props": {"data": data}})
   }, _)
 }

@@ -98,8 +98,7 @@ function getStaticProps(_ctx) {
   return __x.then(function (data) {
               return Promise.resolve({
                           props: {
-                            data: data,
-                            revalidate: 60
+                            data: data
                           }
                         });
             });
