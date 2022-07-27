@@ -8,24 +8,24 @@ var Caml_option = require("rescript/lib/js/caml_option.js");
 var RescriptRelay = require("rescript-relay/src/RescriptRelay.bs.js");
 var RelayRuntime = require("relay-runtime");
 var Hooks = require("react-relay/hooks");
-var IndexQuery_graphql = require("./__generated__/IndexQuery_graphql.bs.js");
+var StaticQuery_graphql = require("./__generated__/StaticQuery_graphql.bs.js");
 var RescriptRelay_Internal = require("rescript-relay/src/RescriptRelay_Internal.bs.js");
 
 function use(variables, fetchPolicy, fetchKey, networkCacheConfig, param) {
-  var data = Hooks.useLazyLoadQuery(IndexQuery_graphql.node, RescriptRelay_Internal.internal_cleanObjectFromUndefinedRaw(IndexQuery_graphql.Internal.convertVariables(variables)), {
+  var data = Hooks.useLazyLoadQuery(StaticQuery_graphql.node, RescriptRelay_Internal.internal_cleanObjectFromUndefinedRaw(StaticQuery_graphql.Internal.convertVariables(variables)), {
         fetchKey: fetchKey,
         fetchPolicy: RescriptRelay.mapFetchPolicy(fetchPolicy),
         networkCacheConfig: networkCacheConfig
       });
-  return RescriptRelay_Internal.internal_useConvertedValue(IndexQuery_graphql.Internal.convertResponse, data);
+  return RescriptRelay_Internal.internal_useConvertedValue(StaticQuery_graphql.Internal.convertResponse, data);
 }
 
 function useLoader(param) {
-  var match = Hooks.useQueryLoader(IndexQuery_graphql.node);
+  var match = Hooks.useQueryLoader(StaticQuery_graphql.node);
   var loadQueryFn = match[1];
   var loadQuery = React.useMemo((function () {
           return function (param, param$1, param$2, param$3) {
-            return Curry._2(loadQueryFn, IndexQuery_graphql.Internal.convertVariables(param), {
+            return Curry._2(loadQueryFn, StaticQuery_graphql.Internal.convertVariables(param), {
                         fetchPolicy: param$1,
                         networkCacheConfig: param$2
                       });
@@ -39,14 +39,14 @@ function useLoader(param) {
 }
 
 function $$fetch(environment, variables, onResult, networkCacheConfig, fetchPolicy, param) {
-  Hooks.fetchQuery(environment, IndexQuery_graphql.node, IndexQuery_graphql.Internal.convertVariables(variables), {
+  Hooks.fetchQuery(environment, StaticQuery_graphql.node, StaticQuery_graphql.Internal.convertVariables(variables), {
           networkCacheConfig: networkCacheConfig,
           fetchPolicy: RescriptRelay.mapFetchQueryFetchPolicy(fetchPolicy)
         }).subscribe({
         next: (function (res) {
             return Curry._1(onResult, {
                         TAG: /* Ok */0,
-                        _0: IndexQuery_graphql.Internal.convertResponse(res)
+                        _0: StaticQuery_graphql.Internal.convertResponse(res)
                       });
           }),
         error: (function (err) {
@@ -60,22 +60,22 @@ function $$fetch(environment, variables, onResult, networkCacheConfig, fetchPoli
 }
 
 function fetchPromised(environment, variables, networkCacheConfig, fetchPolicy, param) {
-  var __x = Hooks.fetchQuery(environment, IndexQuery_graphql.node, IndexQuery_graphql.Internal.convertVariables(variables), {
+  var __x = Hooks.fetchQuery(environment, StaticQuery_graphql.node, StaticQuery_graphql.Internal.convertVariables(variables), {
           networkCacheConfig: networkCacheConfig,
           fetchPolicy: RescriptRelay.mapFetchQueryFetchPolicy(fetchPolicy)
         }).toPromise();
   return __x.then(function (res) {
-              return Promise.resolve(IndexQuery_graphql.Internal.convertResponse(res));
+              return Promise.resolve(StaticQuery_graphql.Internal.convertResponse(res));
             });
 }
 
 function usePreloaded(queryRef, param) {
-  var data = Hooks.usePreloadedQuery(IndexQuery_graphql.node, queryRef);
-  return RescriptRelay_Internal.internal_useConvertedValue(IndexQuery_graphql.Internal.convertResponse, data);
+  var data = Hooks.usePreloadedQuery(StaticQuery_graphql.node, queryRef);
+  return RescriptRelay_Internal.internal_useConvertedValue(StaticQuery_graphql.Internal.convertResponse, data);
 }
 
 function retain(environment, variables) {
-  var operationDescriptor = RelayRuntime.createOperationDescriptor(IndexQuery_graphql.node, IndexQuery_graphql.Internal.convertVariables(variables));
+  var operationDescriptor = RelayRuntime.createOperationDescriptor(StaticQuery_graphql.node, StaticQuery_graphql.Internal.convertVariables(variables));
   return environment.retain(operationDescriptor);
 }
 
@@ -90,15 +90,16 @@ var Query = {
 };
 
 function $$default(props) {
-  return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "getServerSideProps & Query.fetchPromised"), React.createElement("h2", undefined, String(props.data.siteStatistics.currentVisitorsOnline)));
+  return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "getStaticProps & Query.fetchPromised"), React.createElement("h2", undefined, String(props.data.siteStatistics.currentVisitorsOnline)));
 }
 
-function getServerSideProps(_ctx) {
+function getStaticProps(_ctx) {
   var __x = fetchPromised(RelayEnv.environment, undefined, undefined, undefined, undefined);
   return __x.then(function (data) {
               return Promise.resolve({
                           props: {
-                            data: data
+                            data: data,
+                            revalidate: 60
                           }
                         });
             });
@@ -108,5 +109,5 @@ exports.Query = Query;
 exports.$$default = $$default;
 exports.default = $$default;
 exports.__esModule = true;
-exports.getServerSideProps = getServerSideProps;
+exports.getStaticProps = getStaticProps;
 /* react Not a pure module */

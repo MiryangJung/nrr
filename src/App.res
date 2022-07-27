@@ -16,6 +16,6 @@ let default = (props: props): React.element => {
   let content = React.createElement(component, pageProps)
 
   <RescriptRelay.Context.Provider environment=RelayEnv.environment>
-    content
+    <Nav /> content
   </RescriptRelay.Context.Provider>
 }
