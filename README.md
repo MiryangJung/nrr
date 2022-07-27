@@ -17,4 +17,4 @@ yarn
 yarn dev
 ```
 
-![capture](/public/capture.png)
+![captured](/public/captured.png)
